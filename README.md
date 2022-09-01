@@ -14,9 +14,9 @@ Nomad Coders "유튜브 클론코딩" 강의 참고
 /users/:id -> See User
 /users/logout -> Logout
 /users/edit -> Edit MY Profile
-/users/delete -> Delete MY Profile
+/users/remove -> Remove MY Profile
 
 /videos/:id -> Watch Video
 /videos/upload -> Upload Video
 /videos/:id/edit -> Edit Video
-/videos/:id/delete -> Delete Video
+/videos/:id/remove -> Remove Video
