@@ -1,0 +1,7 @@
+extends base
+
+block content 
+    h4 비디오 수정
+    form(method="POST")
+        input(name="title", value=video.title, placeholder="Video Title")
+        input(value="Save", type="submit")
