@@ -4,4 +4,6 @@ block content
     h4 비디오 수정
     form(method="POST")
         input(name="title", value=video.title, placeholder="Video Title")
+        input(type="text",placeholder="Description", required, name="description", minLength=20, value=video.description)
+        input(type="text",placeholder="Hashtags, separated by comma", required, name="hashtags", value=video.hashtags.join())
         input(value="Save", type="submit")
