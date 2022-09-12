@@ -28,7 +28,11 @@ export const postEdit = async (req, res) => {
   if (video === null) {
     return res.render("404", { pageTitle: "Video not found" });
   }
-  await Video.findByIdAndUpdate(id, { title, description, hashtags });
+  await Video.findByIdAndUpdate(id, {
+    title,
+    description,
+    hashtags: Video.formatHashtags(hashtags),
+  });
   return res.redirect(`/videos/${id}`);
 };
 export const getUpload = (req, res) => {
@@ -40,15 +44,15 @@ export const postUpload = async (req, res) => {
     await Video.create({
       title,
       description,
-      hashtags,
+      hashtags: Video.formatHashtags(hashtags),
     });
     return res.redirect("/");
   } catch (error) {
+    console.log(error);
     return res.render("upload", {
       pageTitle: "Upload Video",
       errorMessage: error._message,
     });
   }
-  return res.redirect("/");
 };
 export const remove = (req, res) => res.send("Remove Videos");
