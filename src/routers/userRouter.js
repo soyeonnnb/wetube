@@ -1,7 +1,17 @@
 import express from "express";
-import { edit, remove, see, logout } from "../controllers/userControllers";
+import {
+  startGithubLogin,
+  finishGithubLogin,
+  edit,
+  remove,
+  see,
+  logout,
+} from "../controllers/userControllers";
 
 const userRouter = express.Router();
+
+userRouter.get("/github/start", startGithubLogin);
+userRouter.get("/github/finish", finishGithubLogin);
 
 userRouter.get("/edit", edit);
 userRouter.get("/remove", remove);

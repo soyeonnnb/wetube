@@ -20,3 +20,7 @@ Nomad Coders "유튜브 클론코딩" 강의 참고
 /videos/upload -> Upload Video
 /videos/:id/edit -> Edit Video
 /videos/:id/remove -> Remove Video
+
+#### 강의 후 고칠 점
+
+- [ ] 깃허브 로그인 오류 (코드 그대로 작성해도 왜인지 안됨)
