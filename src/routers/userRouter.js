@@ -7,14 +7,15 @@ import {
   remove,
   see,
 } from "../controllers/userControllers";
+import { protectorMiddleware, publicOnlyMiddleware } from "../middlewares.js";
 
 const userRouter = express.Router();
 
-userRouter.get("/github/start", startGithubLogin);
-userRouter.get("/github/finish", finishGithubLogin);
+userRouter.get("/github/start", publicOnlyMiddleware, startGithubLogin);
+userRouter.get("/github/finish", publicOnlyMiddleware, finishGithubLogin);
 
-userRouter.route("/edit").get(getEdit).post(postEdit);
-userRouter.get("/remove", remove);
-userRouter.get("/:id(\\d+)", see);
+userRouter.route("/edit").all(protectorMiddleware).get(getEdit).post(postEdit);
+userRouter.get("/remove", protectorMiddleware, remove);
+userRouter.get("/:id", see);
 
 export default userRouter;

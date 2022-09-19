@@ -132,7 +132,43 @@ export const finishGithubLogin = async (req, res) => {
 
 export const getEdit = (req, res) =>
   res.render("users/edit", { pageTitle: "Edit Profile" });
-export const postEdit = (req, res) => {};
+
+export const postEdit = async (req, res) => {
+  const pageTitle = "Edit Profile";
+  const {
+    session: {
+      user,
+      user: { _id },
+    },
+    body: { name, email, username, location },
+  } = req;
+  const existsUsername = await User.findOne({ username });
+  if (user.username !== username && existsUsername) {
+    return res.render("users/edit", {
+      pageTitle,
+      errorMessage: "이미 있는 Username입니다.",
+    });
+  }
+  const existsEmail = await User.findOne({ email });
+  if (user.email !== email && existsEmail) {
+    return res.render("users/edit", {
+      pageTitle,
+      errorMessage: "이미 있는 Email입니다.",
+    });
+  }
+  const updatedUser = await User.findByIdAndUpdate(
+    _id,
+    {
+      name,
+      email,
+      username,
+      location,
+    },
+    { new: true }
+  );
+  req.session.user = updatedUser;
+  return res.redirect("edit");
+};
 export const remove = (req, res) => res.send("Remove User");
 export const see = (req, res) => res.send("See User");
 export const logout = (req, res) => {

@@ -7,14 +7,23 @@ import {
   postLogin,
   logout,
 } from "../controllers/userControllers";
+import { protectorMiddleware, publicOnlyMiddleware } from "../middlewares.js";
 
 const globalRouter = express.Router();
 
 globalRouter.get("/", home);
 globalRouter.route("/search").get(search);
 
-globalRouter.route("/join").get(getJoin).post(postJoin);
-globalRouter.route("/login").get(getLogin).post(postLogin);
-globalRouter.get("/logout", logout);
+globalRouter
+  .route("/join")
+  .all(publicOnlyMiddleware)
+  .get(getJoin)
+  .post(postJoin);
+globalRouter
+  .route("/login")
+  .all(publicOnlyMiddleware)
+  .get(getLogin)
+  .post(postLogin);
+globalRouter.get("/logout", protectorMiddleware, logout);
 
 export default globalRouter;
