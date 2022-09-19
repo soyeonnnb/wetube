@@ -136,5 +136,6 @@ export const postEdit = (req, res) => {};
 export const remove = (req, res) => res.send("Remove User");
 export const see = (req, res) => res.send("See User");
 export const logout = (req, res) => {
-  res.send("Logout User");
+  req.session.destroy();
+  return res.redirect("/");
 };

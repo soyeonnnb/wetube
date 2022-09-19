@@ -5,6 +5,7 @@ import {
   postJoin,
   getLogin,
   postLogin,
+  logout,
 } from "../controllers/userControllers";
 
 const globalRouter = express.Router();
@@ -14,5 +15,6 @@ globalRouter.route("/search").get(search);
 
 globalRouter.route("/join").get(getJoin).post(postJoin);
 globalRouter.route("/login").get(getLogin).post(postLogin);
+globalRouter.get("/logout", logout);
 
 export default globalRouter;
