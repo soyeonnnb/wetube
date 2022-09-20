@@ -10,7 +10,11 @@ import {
   remove,
   see,
 } from "../controllers/userControllers";
-import { protectorMiddleware, publicOnlyMiddleware } from "../middlewares.js";
+import {
+  protectorMiddleware,
+  publicOnlyMiddleware,
+  multerMiddleware,
+} from "../middlewares.js";
 
 const userRouter = express.Router();
 
@@ -24,7 +28,11 @@ userRouter
   .post(postChangePassword);
 
 userRouter.all(protectorMiddleware).get("/profile", seeProfile);
-userRouter.route("/edit").all(protectorMiddleware).get(getEdit).post(postEdit);
+userRouter
+  .route("/edit")
+  .all(protectorMiddleware)
+  .get(getEdit)
+  .post(multerMiddleware.single("avatar"), postEdit);
 userRouter.get("/remove", protectorMiddleware, remove);
 userRouter.get("/:id", see);
 

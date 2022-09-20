@@ -16,12 +16,13 @@ const logger = morgan("dev");
 app.set("view engine", "pug");
 app.set("views", process.cwd() + "/src/views");
 
+app.use("/uploads", express.static("uploads"));
 app.use(logger);
 app.use(express.urlencoded({ extended: true }));
 
 app.use(
   session({
-    secret:process.env.COOKIE_SECRET,
+    secret: process.env.COOKIE_SECRET,
     saveUninitialized: true,
     resave: true,
     store: MongoStore.create({ mongoUrl: process.env.DB_URL }),

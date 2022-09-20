@@ -131,27 +131,28 @@ export const finishGithubLogin = async (req, res) => {
 };
 
 export const getEdit = (req, res) =>
-  res.render("users/edit", { pageTitle: "Edit Profile" });
+  res.render("users/edit-profile", { pageTitle: "Edit Profile" });
 
 export const postEdit = async (req, res) => {
   const pageTitle = "Edit Profile";
   const {
     session: {
       user,
-      user: { _id },
+      user: { _id, avatarUrl },
     },
     body: { name, email, username, location },
+    file,
   } = req;
   const existsUsername = await User.findOne({ username });
   if (user.username !== username && existsUsername) {
-    return res.render("users/edit", {
+    return res.render("users/edit-profile", {
       pageTitle,
       errorMessage: "이미 있는 Username입니다.",
     });
   }
   const existsEmail = await User.findOne({ email });
   if (user.email !== email && existsEmail) {
-    return res.render("users/edit", {
+    return res.render("users/edit-profile", {
       pageTitle,
       errorMessage: "이미 있는 Email입니다.",
     });
@@ -159,6 +160,7 @@ export const postEdit = async (req, res) => {
   const updatedUser = await User.findByIdAndUpdate(
     _id,
     {
+      avatarUrl: file ? file.path : avatarUrl,
       name,
       email,
       username,
