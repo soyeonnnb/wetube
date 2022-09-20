@@ -169,9 +169,44 @@ export const postEdit = async (req, res) => {
   req.session.user = updatedUser;
   return res.redirect("edit");
 };
+
+export const getChangePassword = (req, res) => {
+  if (req.session.user.socialOnly === true) {
+    return res.redirect("/");
+  }
+  return res.render("users/change-password", { pageTitle: "Change Password" });
+};
+export const postChangePassword = async (req, res) => {
+  const {
+    session: {
+      user: { _id, password },
+    },
+    body: { oldPassword, newPassword, checkPassword },
+  } = req;
+  if (newPassword !== checkPassword) {
+    return res.status(400).render("change-password", {
+      pageTitle: "Change Password",
+      errorMessage: "비밀번호와 비밀번호 확인이 일치하지 않습니다.",
+    });
+  }
+  const user = await User.findById(_id);
+  const ok = await bcrypt.compare(oldPassword, user.password);
+  if (!ok) {
+    return res.status(400).render("change-password", {
+      pageTitle: "Change Password",
+      errorMessage: "기존 비밀번호가 일치하지 않습니다.",
+    });
+  }
+  user.password = newPassword;
+  await user.save();
+  return res.redirect("profile");
+};
+
+export const seeProfile = (req, res) => res.send("Profile");
+
 export const remove = (req, res) => res.send("Remove User");
 export const see = (req, res) => res.send("See User");
 export const logout = (req, res) => {
   req.session.destroy();
-  return res.redirect("/");
+  return res.redirect("profile");
 };
