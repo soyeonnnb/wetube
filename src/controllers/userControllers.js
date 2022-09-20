@@ -204,11 +204,23 @@ export const postChangePassword = async (req, res) => {
   return res.redirect("profile");
 };
 
-export const seeProfile = (req, res) => res.send("Profile");
-
 export const remove = (req, res) => res.send("Remove User");
-export const see = (req, res) => res.send("See User");
+
+export const see = async (req, res) => {
+  const { id } = req.params;
+  const user = await User.findById(id);
+  if (!user) {
+    return res
+      .status(400)
+      .render("404", { pageTitle: "존재하지 않는 user입니다." });
+  }
+  return res.render("users/profile", {
+    pageTitle: user.name,
+    user,
+  });
+};
+
 export const logout = (req, res) => {
   req.session.destroy();
-  return res.redirect("profile");
+  return res.redirect("users/profile");
 };

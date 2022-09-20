@@ -27,13 +27,13 @@ userRouter
   .get(getChangePassword)
   .post(postChangePassword);
 
-userRouter.all(protectorMiddleware).get("/profile", seeProfile);
 userRouter
   .route("/edit")
   .all(protectorMiddleware)
   .get(getEdit)
   .post(avatarUpload.single("avatar"), postEdit);
 userRouter.get("/remove", protectorMiddleware, remove);
-userRouter.get("/:id", see);
+
+userRouter.get("/:id([0-9a-f]{24})", see);
 
 export default userRouter;
