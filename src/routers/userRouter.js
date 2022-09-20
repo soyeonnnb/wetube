@@ -13,7 +13,7 @@ import {
 import {
   protectorMiddleware,
   publicOnlyMiddleware,
-  multerMiddleware,
+  avatarUpload,
 } from "../middlewares.js";
 
 const userRouter = express.Router();
@@ -32,7 +32,7 @@ userRouter
   .route("/edit")
   .all(protectorMiddleware)
   .get(getEdit)
-  .post(multerMiddleware.single("avatar"), postEdit);
+  .post(avatarUpload.single("avatar"), postEdit);
 userRouter.get("/remove", protectorMiddleware, remove);
 userRouter.get("/:id", see);
 
