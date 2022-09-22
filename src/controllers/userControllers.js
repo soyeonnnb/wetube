@@ -2,19 +2,19 @@ import User from "../models/User.js";
 import bcrypt from "bcrypt";
 
 export const getJoin = (req, res) =>
-  res.render("users/join", { pageTitle: "Join" });
+  res.render("users/join", { pageTitle: "JOIN" });
 export const postJoin = async (req, res) => {
   const { name, email, username, password, password2, location } = req.body;
   if (password !== password2) {
     return res.status(400).render("users/join", {
-      pageTitle: "Join",
+      pageTitle: "JOIN",
       errorMessage: "비밀번호가 일치하지 않습니다.",
     });
   }
   const exists = await User.exists({ $or: [{ username }, { email }] });
   if (exists) {
     return res.status(400).render("users/join", {
-      pageTitle: "Join",
+      pageTitle: "JOIN",
       errorMessage: "이미 존재하는 닉네임/이메일 입니다.",
     });
   }
@@ -35,10 +35,10 @@ export const postJoin = async (req, res) => {
   }
 };
 export const getLogin = (req, res) => {
-  return res.render("users/login", { pageTitle: "Login" });
+  return res.render("users/login", { pageTitle: "LOGIN" });
 };
 export const postLogin = async (req, res) => {
-  const pageTitle = "Login";
+  const pageTitle = "LOGIN";
   const { username, password } = req.body;
   const user = await User.findOne({ username });
   if (!user) {
@@ -222,5 +222,5 @@ export const see = async (req, res) => {
 
 export const logout = (req, res) => {
   req.session.destroy();
-  return res.redirect("users/profile");
+  return res.redirect("/");
 };

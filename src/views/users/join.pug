@@ -3,6 +3,7 @@ extends ../base
 block content
     span=errorMessage
     form(method="POST")
+        h1=pageTitle
         input(name="name", placeholder="name", type="text", required)
         input(name="email", placeholder="email", type="email", required)
         input(name="username", placeholder="username", type="text", required)
@@ -11,7 +12,12 @@ block content
         input(name="location", placeholder="location", type="text")
         input(type="submit", value="Join")
     
-    hr
-    div 
-        span 이미 계정이 있으십니까?
-            a(href="/login") 로그인 &rarr;
+        div.form__link
+            div.social-login
+                a(href="/users/github/start") 
+                    i.fa-brands.fa-github
+                    span   GITHUB로 로그인하기 &rarr;
+            div.form__link-a
+                span 이미 계정이 있으십니까? 
+                    a(href="/login") 로그인 &rarr;
+    

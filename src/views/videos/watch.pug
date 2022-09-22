@@ -1,9 +1,10 @@
 extends ../base
 block content 
     video(width="320", height="240", src="/"+video.fileUrl, controls)
-    div
-        p=video.description
-        p #{video.meta.views} #{video.meta.views === 1 ? "view" : "views"}
+    div.video__data
+        span.video__name=video.name
+        p.video__description=video.description
+        p.video__views #{video.meta.views} #{video.meta.views === 1 ? "view" : "views"}
         ul
             each hashtag in video.hashtags
                 li #{hashtag}
