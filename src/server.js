@@ -17,6 +17,7 @@ app.set("view engine", "pug");
 app.set("views", process.cwd() + "/src/views");
 
 app.use("/uploads", express.static("uploads"));
+app.use("/static", express.static("assets"));
 app.use(logger);
 app.use(express.urlencoded({ extended: true }));
 
