@@ -1,0 +1,39 @@
+header 
+    a(href="/")
+        i.fab.fa-youtube.fa-2xl
+        span Wetube
+    nav 
+        ul
+            li
+                a(href="/search")
+                    i.fa-solid.fa-magnifying-glass
+            if loggedIn 
+                li
+                    a(href="/videos/upload")
+                        span UPLOAD 
+                li
+                    a(href="/users/edit") 
+                        span EDIT PROFILE
+                li 
+                    a(href="/logout")
+                        span LOGOUT
+                li
+                    a(href=`/users/${user._id}`)
+                        span PROFILE
+            else 
+                li 
+                    a(href="/join")
+                        span JOIN
+                li 
+                    a(href="/login")
+                        span LOGIN
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
