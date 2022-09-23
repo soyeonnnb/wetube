@@ -8,7 +8,8 @@
 @import "./components/form.scss";
 @import "./components/socialLogin.scss";
 
-// Screens\videos\632ac6d1becf1f73b0a21afc
+// Screens
+@import "./screens/videos/watch.scss";
 
 a {
   color: inherit;
@@ -27,4 +28,7 @@ main {
   width: 100%;
   margin: 0 auto;
   margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
