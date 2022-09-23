@@ -3,7 +3,7 @@ form {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid white;
+  border: 1px solid $black;
   max-width: 800px;
   width: 80%;
   margin: 0 auto;
@@ -18,7 +18,7 @@ form {
     margin: 2px;
     font-size: 15px;
     padding: 7px 15px;
-    border: none;
+    border: 1px solid $black;
     border-radius: 2px;
     height: 30px;
     &:hover {
@@ -26,7 +26,6 @@ form {
     }
     &:focus {
       outline: none;
-      border: none;
       background-color: $red-bright;
     }
   }
