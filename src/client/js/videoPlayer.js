@@ -20,7 +20,10 @@ const handlePlay = (e) => {
   } else {
     video.pause();
   }
-  playBtn.innerText = video.paused ? "Play" : "Pause";
+
+  playBtn.innerHTML = video.paused
+    ? "<i class='fa-solid fa-play'></i>"
+    : "<i class='fa-solid fa-pause'></i>";
 };
 
 const handleMute = (e) => {
@@ -29,7 +32,9 @@ const handleMute = (e) => {
   } else {
     video.muted = true;
   }
-  muteBtn.innerText = video.muted ? "UnMute" : "Mute";
+  muteBtn.innerHTML = video.muted
+    ? "<i class='fa-solid fa-volume-xmark'></i>"
+    : "<i class='fa-solid fa-volume-high'></i>";
   volumeRange.value = video.muted ? 0 : volumeValue;
 };
 
@@ -39,7 +44,7 @@ const handleVolumeChange = (event) => {
   } = event;
   if (video.muted) {
     video.muted = false;
-    muteBtn.innerText = "Mute";
+    muteBtn.innerHTML = "<i class='fa-solid fa-volume-high'></i>";
   }
   volumeValue = value;
   video.volume = value;
@@ -69,10 +74,8 @@ const handleFullscreen = () => {
   const fullscreen = document.fullscreenElement;
   if (fullscreen) {
     document.exitFullscreen();
-    fullscreenBtn.innerText = "Enter Full Screen";
   } else {
     videoContainer.requestFullscreen();
-    fullscreenBtn.innerText = "Exit Full Screen";
   }
 };
 

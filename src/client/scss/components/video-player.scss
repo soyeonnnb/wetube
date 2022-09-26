@@ -1,0 +1,27 @@
+.videoControls {
+  background-color: hsla(0, 0%, 0%, 0.773);
+  display: flex;
+  max-width: 800px;
+  width: 90%;
+  height: 38px;
+  bottom: 50px;
+  padding: 0 10px;
+  border-radius: 5px;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  .playBtn {
+    margin-right: 15px;
+  }
+  .fullscreenBtn {
+    margin-left: 15px;
+  }
+  .muteBtn {
+    width: 30px;
+  }
+  .timeline-range {
+    width: 70%;
+    margin-right: 15px;
+  }
+}
