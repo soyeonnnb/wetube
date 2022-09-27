@@ -1,21 +1,23 @@
 extends ../base
 block content 
-    div#videoContainer.videoContainer
-        video.watch(src="/"+video.fileUrl)
+    div#videoContainer
+        video(src="/" + video.fileUrl)
         div#videoControls.videoControls
-            span#play.playBtn
-                i.fa-solid.fa-play
-            div.timeline
-                span#currentTime.timeline-current 00:00:00
-                span /
-                span#totalTime.timeline-total 00:00
-            input(type="range", step="1", value="0", min="0")#timeline.timeline-range
-            span#mute.muteBtn
-                i.fa-solid.fa-volume-high
-            input(type="range", step="0.1", value="0.5", min="0", max="1")#volume.volumeRange
-            
-            span#fullscreen.fullscreenBtn  
-                i.fa-solid.fa-expand
+            div.videoControls__play
+                span#play.videoControls__playBtn
+                    i.fas.fa-play
+                div.videoControls__time
+                    span#currenTime 00:00
+                    span  / 
+                    span#totalTime 00:00
+            input(type="range",step="1", value="0", min="0")#timeline.videoControls__timeline
+            div.videoControls__volume
+                input(type="range",step="0.1", value=0.5, min="0", max="1")#volume
+                span#mute
+                    i.fas.fa-volume-up
+            div
+                span#fullScreen
+                    i.fas.fa-expand
         
     div.video__data
         ul.video__hashtags
