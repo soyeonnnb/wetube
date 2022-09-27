@@ -276,6 +276,12 @@ form input[type=submit] {
   font-size: 20px;
 }
 
+video#preview {
+  transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg); /* Safari and Chrome */
+  -moz-transform: rotateY(180deg); /* Firefox */
+}
+
 video.watch {
   max-width: 800px;
   width: 100%;
