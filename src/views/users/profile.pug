@@ -1,8 +1,11 @@
 extends ../base
 include ../mixins/video
-
-block content 
-    each video in loggedInUser.videos
-        +video(video)
-    else 
-        span 아무것도 찾지 못했습니다.
+block content
+    div.profile__data
+        img(src="/" + user.avatarUrl).avatar
+        h3=user.name
+    div.video-grid
+        each video in user.videos
+            +video(video)
+        else
+            span.empty__message No videos found

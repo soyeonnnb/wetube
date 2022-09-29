@@ -1,14 +1,13 @@
-.video-recorder {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  button {
-    margin: 10px 0;
-    width: 200px;
-    height: 50px;
-    background-color: white;
-    border: 2px solid $red;
-    border-radius: 3px;
-    font-size: 15px;
+.upload__container {
+  width: 100%;
+  .upload__video {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    video {
+      max-width: 100%;
+      margin-bottom: 10px;
+    }
   }
 }

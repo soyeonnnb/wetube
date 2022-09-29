@@ -42,7 +42,7 @@ export const getEdit = async (req, res) => {
     req.flash("error", "접근 권한이 없습니다.");
     return res.status(403).redirect("/");
   }
-  return res.render("videos/editd", {
+  return res.render("videos/edit", {
     pageTitle: `Editing: ${video.title}`,
     video,
   });
