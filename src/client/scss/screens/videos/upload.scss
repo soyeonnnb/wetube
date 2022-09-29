@@ -1,0 +1,14 @@
+.video-recorder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  button {
+    margin: 10px 0;
+    width: 200px;
+    height: 50px;
+    background-color: white;
+    border: 2px solid $red;
+    border-radius: 3px;
+    font-size: 15px;
+  }
+}

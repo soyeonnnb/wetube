@@ -9,9 +9,12 @@
 @import "./components/socialLogin.scss";
 @import "./components/video-player.scss";
 @import "./components/recorder.scss";
+@import "./components/video.scss";
 
 // Screens
+@import "./screens/home.scss";
 @import "./screens/videos/watch.scss";
+@import "./screens/videos/upload.scss";
 
 a {
   color: inherit;
@@ -30,7 +33,4 @@ main {
   width: 100%;
   margin: 0 auto;
   margin-top: 50px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
