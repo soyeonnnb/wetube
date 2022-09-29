@@ -3,9 +3,11 @@ import bcrypt from "bcrypt";
 
 export const getJoin = (req, res) =>
   res.render("users/join", { pageTitle: "JOIN" });
+
 export const postJoin = async (req, res) => {
   const { name, email, username, password, password2, location } = req.body;
   if (password !== password2) {
+    req.flash("error", "비밀번호가 일치하지 않습니다.");
     return res.status(400).render("users/join", {
       pageTitle: "JOIN",
       errorMessage: "비밀번호가 일치하지 않습니다.",
@@ -13,6 +15,7 @@ export const postJoin = async (req, res) => {
   }
   const exists = await User.exists({ $or: [{ username }, { email }] });
   if (exists) {
+    req.flash("error", "이미 존재하는 닉네임/이메일 입니다..");
     return res.status(400).render("users/join", {
       pageTitle: "JOIN",
       errorMessage: "이미 존재하는 닉네임/이메일 입니다.",
@@ -28,6 +31,7 @@ export const postJoin = async (req, res) => {
     });
     return res.redirect("/login");
   } catch (error) {
+    req.flash("error", "계정 생성에 실패하였습니다.");
     return res.status(400).render("users/join", {
       pageTitle: "Join",
       errorMessage: error._message,
@@ -42,6 +46,7 @@ export const postLogin = async (req, res) => {
   const { username, password } = req.body;
   const user = await User.findOne({ username });
   if (!user) {
+    req.flash("error", "존재하지 않는 username입니다.");
     return res.status(400).render("users/login", {
       pageTitle,
       errorMessage: "존재하지 않는 Username 입니다.",
@@ -49,6 +54,7 @@ export const postLogin = async (req, res) => {
   }
   const match = await bcrypt.compare(password, user.password);
   if (!match) {
+    req.flash("error", "비밀번호가 일치하지 않습니다.");
     return res.status(400).render("users/login", {
       pageTitle,
       errorMessage: "비밀번호가 일치하지 않습니다.",
@@ -145,6 +151,7 @@ export const postEdit = async (req, res) => {
   } = req;
   const existsUsername = await User.findOne({ username });
   if (user.username !== username && existsUsername) {
+    req.flash("error", "이미 존재하는 username입니다.");
     return res.render("users/edit-profile", {
       pageTitle,
       errorMessage: "이미 있는 Username입니다.",
@@ -152,6 +159,7 @@ export const postEdit = async (req, res) => {
   }
   const existsEmail = await User.findOne({ email });
   if (user.email !== email && existsEmail) {
+    req.flash("error", "이미 존재하는 email입니다.");
     return res.render("users/edit-profile", {
       pageTitle,
       errorMessage: "이미 있는 Email입니다.",
@@ -174,6 +182,7 @@ export const postEdit = async (req, res) => {
 
 export const getChangePassword = (req, res) => {
   if (req.session.user.socialOnly === true) {
+    req.flash("error", "소셜 로그인 유저는 비밀번호를 변경할 수 없습니다.");
     return res.redirect("/");
   }
   return res.render("users/change-password", { pageTitle: "Change Password" });
@@ -186,6 +195,7 @@ export const postChangePassword = async (req, res) => {
     body: { oldPassword, newPassword, checkPassword },
   } = req;
   if (newPassword !== checkPassword) {
+    req.flash("error", "비밀번호와 비밀번호 확인이 일치하지 않습니다.");
     return res.status(400).render("change-password", {
       pageTitle: "Change Password",
       errorMessage: "비밀번호와 비밀번호 확인이 일치하지 않습니다.",
@@ -194,6 +204,7 @@ export const postChangePassword = async (req, res) => {
   const user = await User.findById(_id);
   const ok = await bcrypt.compare(oldPassword, user.password);
   if (!ok) {
+    req.flash("error", "기본 비밀번호가 일치하지 않습니다.");
     return res.status(400).render("change-password", {
       pageTitle: "Change Password",
       errorMessage: "기존 비밀번호가 일치하지 않습니다.",
@@ -201,6 +212,7 @@ export const postChangePassword = async (req, res) => {
   }
   user.password = newPassword;
   await user.save();
+  req.flash("info", "비밀번호 변경이 완료되었습니다.");
   return res.redirect("profile");
 };
 
@@ -221,6 +233,9 @@ export const see = async (req, res) => {
 };
 
 export const logout = (req, res) => {
-  req.session.destroy();
+  req.session.user = null;
+  res.locals.loggedInUser = req.session.user;
+  req.session.loggedIn = false;
+  req.flash("info", "로그아웃 완료");
   return res.redirect("/");
 };

@@ -2,7 +2,7 @@ import express from "express";
 import session from "express-session";
 import morgan from "morgan";
 import MongoStore from "connect-mongo";
-
+import flash from "express-flash";
 import { localsMiddleware } from "./middlewares";
 
 // Router
@@ -22,6 +22,7 @@ app.use("/static", express.static("assets"));
 app.use(logger);
 app.use(express.urlencoded({ extended: true }));
 
+app.use(flash());
 app.use(
   session({
     secret: process.env.COOKIE_SECRET,

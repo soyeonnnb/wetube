@@ -2,7 +2,7 @@ extends ../base
 include ../mixins/video
 
 block content 
-    each video in user.videos
+    each video in loggedInUser.videos
         +video(video)
     else 
         span 아무것도 찾지 못했습니다.
